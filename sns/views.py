@@ -4,7 +4,9 @@ from django.contrib import messages
 
 from .models import Message
 from .forms import PostForm
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='/admin/login')
 def index(request):
     if(request.method == 'POST'):
         messages= get_your_message(request.user)
@@ -17,6 +19,7 @@ def index(request):
     }
     return render(request, 'sns/index.html', params)
 
+@login_required(login_url='/admin/login')
 def post(request):
     if(request.method == 'POST'):
         content = request.POST['content']
