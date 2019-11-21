@@ -3,7 +3,7 @@
 {% block title %}Index{% endblock %}
 
 {% block header %}
-<h1>Sns</h1>
+<h1>Internet Bulletin</h1>
 <p class="caption">Recent messages are shown here.</p>
 {% if messages %}
 <ul class="messages">
@@ -18,7 +18,7 @@
 {% block content %}
 {% for item in contents %}
 <hr>
-{{login_user}} 
+{{login_user}}
 <p class="message_content">{{item.content}}</p>
 <p class="message_date">{{item.pub_date}}</p>
 {% endfor %}
