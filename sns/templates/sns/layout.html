@@ -21,7 +21,9 @@
                 </table>
                 </td></tr>
                 <tr><th width="150px">login user:</th>
-                    <td>"{{login_user}}"</td></tr>
+                    <td>{{login_user}}</td></tr>
+                <tr><th width="150px">groups:</th>
+                    <td> {% for item in groups %} {{item}}, {% endfor %} </td>
                 </table>
                 <div class="header">{% block header%}
                     {% endblock %}</div>

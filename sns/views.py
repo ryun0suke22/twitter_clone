@@ -9,13 +9,15 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='/admin/login')
 def index(request):
     if(request.method == 'POST'):
-        messages= get_your_message(request.user)
+        messages = get_your_message(request.user)
     else:
-        messages= get_your_message(request.user)
+        messages = get_your_message(request.user)
 
+    groups = Group.objects.filter(owner=request.user)
     params = {
         'login_user': request.user,
         'contents': messages,
+        'groups': groups,
     }
     return render(request, 'sns/index.html', params)
 
@@ -37,11 +39,13 @@ def post(request):
     else:
         form = PostForm(request.user)
 
-        params = {
-            'login_user': request.user,
-            'form': form,
-        }
-        return render(request, 'sns/post.html', params)
+    groups = Group.objects.filter(owner=request.user)
+    params = {
+        'login_user': request.user,
+        'form': form,
+        'groups': groups,
+    }
+    return render(request, 'sns/post.html', params)
 
 def groups(request):
     members = User.objects.all()
@@ -76,6 +80,7 @@ def groups(request):
         sel_group = '-'
 
     createform = CreateGroupForm()
+    groups = Group.objects.filter(owner=request.user)
 
     params = {
         'login_user': request.user,
@@ -83,6 +88,7 @@ def groups(request):
         'members_form': membersform,
         'create_form': createform,
         'group': sel_group,
+        'groups': groups,
     }
     return render(request, 'sns/groups.html', params)
 
